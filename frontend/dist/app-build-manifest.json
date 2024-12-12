@@ -16,10 +16,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/upload/page.js"
     ],
-    "/_not-found/page": [
+    "/api/process-image/route": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/api/process-image/route.js"
+    ],
+    "/result/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/result/page.js"
     ]
   }
 }

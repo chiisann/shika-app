@@ -1,38 +1,28 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ResultPage() {
-  const [result, setResult] = useState<string | null>(null);
+  const [greeting, setGreeting] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const fetchResult = async () => {
-      try {
-        const response = await fetch("/api/get-result");
-        if (response.ok) {
-          const data = await response.json();
-          setResult(data.message);
-        } else {
-          console.error("Failed to fetch result");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
-
-    fetchResult();
-  }, []);
+    const greetingParam = searchParams.get("greeting");
+    if (greetingParam) {
+      setGreeting(decodeURIComponent(greetingParam));
+    }
+  }, [searchParams]);
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-[#ff7f50] to-[#ffa07a] p-6">
       <h1 className="text-white text-2xl font-mono tracking-wider mb-8">
         Result
       </h1>
-      {result ? (
+      {greeting ? (
         <div className="bg-white rounded-lg p-6 mb-8">
-          <p className="text-[#ff7f50] text-xl">{result}</p>
+          <p className="text-[#ff7f50] text-xl">{greeting}</p>
         </div>
       ) : (
         <p className="text-white">Loading result...</p>

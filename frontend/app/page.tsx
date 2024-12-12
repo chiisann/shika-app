@@ -2,7 +2,6 @@
 
 import { Menu } from "lucide-react";
 import { useRouter } from "next/navigation";
-import DeerIcon from "../public/shika-icon.svg";
 
 export default function Home() {
   const router = useRouter();
@@ -12,11 +11,11 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col bg-gradient-to-b from-[#ff7f50] to-[#ffa07a]">
+    <main className="min-h-screen flex flex-col bg-[url('../public/background.jpg')]">
       {/* Header */}
       <header className="p-6 flex justify-between items-center">
         <h1 className="text-white text-2xl font-mono tracking-wider">
-          SHIKA-FINDER
+          SHIKA-FINDEER
         </h1>
         <button className="text-white" aria-label="Menu">
           <Menu size={32} />

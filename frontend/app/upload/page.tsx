@@ -6,10 +6,14 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 const SAMPLE_IMAGES = [
-  "/placeholder.svg?height=150&width=150",
-  "/placeholder.svg?height=150&width=150",
-  "/placeholder.svg?height=150&width=150",
-  "/placeholder.svg?height=150&width=150",
+  "../img/deer_01.jpg",
+  "../img/deer_02.jpg",
+  "../img/deer_06.jpg",
+  "../img/deer_10.jpg",
+  //   "../../public/img/deer_01.jpg",
+  //   "../../public/img/deer_02.jpg",
+  //   "../../public/img/deer_06.jpg",
+  //   "../../public/img/deer_10.jpg",
 ];
 
 export default function UploadPage() {
@@ -37,11 +41,14 @@ export default function UploadPage() {
 
     const formData = new FormData();
     if (selectedFile) {
+      console.log("File");
       formData.append("image", selectedFile);
     } else if (selectedImage) {
-      // For sample images, we'll just send the URL
       formData.append("imageUrl", selectedImage);
     }
+
+    console.log("formData: ");
+    console.log(formData);
 
     try {
       const response = await fetch("/api/process-image", {
@@ -49,8 +56,20 @@ export default function UploadPage() {
         body: formData,
       });
 
+      //   const response2 = await fetch("/api/hello");
+      //   const response2 = await fetch("http://127.0.0.1:8000/hello", {
+      //     method: "GET",
+      //   });
+      //   console.log("response: ");
+      //   console.log(response);
+      //   console.log("response2: ");
+      //   console.log(response2);
+
       if (response.ok) {
-        router.push("/result");
+        const data = await response.json();
+        // const data2 = await response2.json();
+        // router.push(`/result?greeting=${encodeURIComponent(data2.message)}`);
+        router.push(`/result?greeting=${encodeURIComponent(data.result)}`);
       } else {
         console.error("Failed to process image");
       }
@@ -67,7 +86,7 @@ export default function UploadPage() {
 
       <form onSubmit={handleSubmit}>
         <div className="bg-white rounded-lg p-6 mb-8">
-          <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
+          <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
               <Upload className="w-10 h-10 mb-3 text-gray-400" />
               <p className="mb-2 text-sm text-gray-500">
