@@ -5,21 +5,47 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 
 export default function ResultPage() {
-  const [greeting, setGreeting] = useState<string | null>(null);
+  const [id, setId] = useState<string | null>(null);
+  const [isFavored, setIsFavored] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isFavorited, setIsFavorited] = useState(false);
 
   const handleFavoriteClick = () => {
-    setIsFavorited(!isFavorited);
+    setIsFavored(!isFavored);
   };
 
   useEffect(() => {
     const greetingParam = searchParams.get("greeting");
     if (greetingParam) {
-      setGreeting(decodeURIComponent(greetingParam));
+      setId(decodeURIComponent(greetingParam));
     }
   }, [searchParams]);
+
+  const deer_list = {
+    deer_01: "DEEEEER",
+    deer_02: "しかし",
+    deer_03: "しかちゃん",
+    deer_04: "シカゴ",
+    deer_05: "鹿たろう",
+    deer_06: "バンビ",
+    deer_07: "しカール",
+    deer_08: "シカシカ",
+    deer_09: "シカト",
+    deer_10: "しかりん",
+    deer_11: "シカ",
+    deer_12: "シカ様",
+    deer_13: "鹿男",
+    deer_14: "シカップル",
+    deer_15: "しかめっ面",
+    deer_16: "エゾシカ",
+    deer_17: "シカくん",
+    deer_18: "しかせんせい",
+    deer_19: "シカイダー",
+    deer_20: "Deerly",
+    deer_21: "シカシティ",
+    deer_22: "Shikamaru",
+    deer_23: "Deerling",
+  };
 
   return (
     // <main className="flex flex-col items-center justify-center bg-custom-image p-6 font-sans">
@@ -28,9 +54,9 @@ export default function ResultPage() {
         この鹿は...
       </h2>
       <div className="flex items-center justify-between w-full">
-        {greeting ? (
+        {id ? (
           <p className="text-5xl sm:text-7xl text-white font-mono font-black">
-            {greeting}
+            {deer_list[id]}
           </p>
         ) : (
           <p className="text-white">Loading result...</p>
@@ -38,11 +64,11 @@ export default function ResultPage() {
         <button
           onClick={handleFavoriteClick}
           className={`flex items-center justify-center w-10 h-10 rounded-md transition-colors ${
-            isFavorited ? "bg-white text-[#ff7f50]" : "bg-white text-[#ff7f50]"
+            isFavored ? "bg-white text-[#ff7f50]" : "bg-white text-[#ff7f50]"
           }`}
           aria-label="Favorite"
         >
-          {isFavorited ? (
+          {isFavored ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -73,7 +99,7 @@ export default function ResultPage() {
       <div className="mt-8">
         <div className="bg-white p-2 rounded-lg">
           <Image
-            src={"../img/deer_01.jpg"}
+            src={"../img/" + id + ".jpg"}
             alt="Selected image"
             width={300}
             height={300}

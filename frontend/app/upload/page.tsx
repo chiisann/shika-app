@@ -4,20 +4,19 @@ import { useState } from "react";
 import { Upload, ImageIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-const SAMPLE_IMAGES = [
-  "../img/deer_01.jpg",
-  "../img/deer_02.jpg",
-  "../img/deer_06.jpg",
-  "../img/deer_10.jpg",
-];
+import CameraComponent from "../../components/camera";
 
 export default function UploadPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [result, setResult] = useState("");
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const router = useRouter();
+
+  const handleCapture = (image) => {
+    console.log("Captured Image:", image);
+    setCapturedImage(image);
+  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -26,11 +25,6 @@ export default function UploadPage() {
       const imageUrl = URL.createObjectURL(file);
       setSelectedImage(imageUrl);
     }
-  };
-
-  const handleSampleImageSelect = (imageUrl: string) => {
-    setSelectedImage(imageUrl);
-    setSelectedFile(null);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -42,6 +36,8 @@ export default function UploadPage() {
       formData.append("file", selectedFile);
     } else if (selectedImage) {
       formData.append("file", selectedImage);
+    } else if (capturedImage) {
+      formData.append("file", capturedImage);
     }
 
     try {
@@ -82,6 +78,7 @@ export default function UploadPage() {
       <h1 className="text-white text-2xl font-mono tracking-wider mb-8">
         Upload an Image
       </h1>
+      <CameraComponent onCapture={handleCapture} />
 
       <form onSubmit={handleSubmit}>
         <div className="bg-white rounded-lg p-6 mb-8">
@@ -105,38 +102,14 @@ export default function UploadPage() {
           </label>
         </div>
 
-        {/* <div className="mb-8">
-          <h2 className="text-white text-xl font-mono tracking-wider mb-4">
-            Or select a sample image:
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {SAMPLE_IMAGES.map((image, index) => (
-              <button
-                key={index}
-                type="button"
-                className="bg-white p-2 rounded-lg hover:ring-2 hover:ring-white focus:outline-none focus:ring-2 focus:ring-white"
-                onClick={() => handleSampleImageSelect(image)}
-              >
-                <Image
-                  src={image}
-                  alt={`Sample image ${index + 1}`}
-                  width={150}
-                  height={150}
-                  className="w-full h-auto"
-                />
-              </button>
-            ))}
-          </div>
-        </div> */}
-
-        {selectedImage && (
+        {(selectedImage || capturedImage) && (
           <div className="mt-8">
             <h2 className="text-white text-xl font-mono tracking-wider mb-4">
               Selected Image:
             </h2>
             <div className="bg-white p-2 rounded-lg">
               <Image
-                src={selectedImage}
+                src={selectedImage || capturedImage || ""}
                 alt="Selected image"
                 width={300}
                 height={300}
