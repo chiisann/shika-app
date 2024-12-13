@@ -46,7 +46,7 @@ export default function RootLayout({
               </span>
               <div className="flex mt-4 sm:justify-center sm:mt-0">
                 <a
-                  href="#"
+                  href="https://www.facebook.com/profile.php?id=100071722294512"
                   className=" hover:text-gray-900 dark:hover:text-white"
                 >
                   <svg
@@ -61,7 +61,7 @@ export default function RootLayout({
                   <span className="sr-only">Facebook page</span>
                 </a>
                 <a
-                  href="#"
+                  href="https://x.com/chii560"
                   className=" hover:text-gray-900 dark:hover:text-white ms-5"
                 >
                   <svg
@@ -76,7 +76,7 @@ export default function RootLayout({
                   <span className="sr-only">Twitter page</span>
                 </a>
                 <a
-                  href="#"
+                  href="https://github.com/chiisann"
                   className=" hover:text-gray-900 dark:hover:text-white ms-5"
                 >
                   <svg

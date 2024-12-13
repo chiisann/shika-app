@@ -14,6 +14,7 @@ export default function Home() {
     <main>
       {/* Main Content */}
       <div className="flex items-center flex-col p-6 gap-10 mt-10">
+        <div className="absolute w-64 h-64 bg-white rounded-full animate-pulse-grow border-4 border-white"></div>
         <button
           className="w-64 h-64 bg-white rounded-full flex flex-col items-center justify-center transform transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/50"
           aria-label="Start finding"
