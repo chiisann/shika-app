@@ -11,33 +11,15 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col bg-[url('../public/background.jpg')]">
-      {/* Header */}
-      <header className="p-6 flex justify-between items-center">
-        <h1 className="text-white text-2xl font-mono tracking-wider">
-          SHIKA-FINDEER
-        </h1>
-        <button className="text-white" aria-label="Menu">
-          <Menu size={32} />
-        </button>
-      </header>
-
+    <main>
       {/* Main Content */}
-      <div className="flex-1 flex items-center justify-center flex-col p-6 gap-10">
+      <div className="flex items-center flex-col p-6 gap-10 mt-10">
         <button
           className="w-64 h-64 bg-white rounded-full flex flex-col items-center justify-center transform transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/50"
           aria-label="Start finding"
           onClick={handleStartFinding}
         >
-          <svg
-            // version="1.1"
-            // id="_x32_"
-            // xmlns="http://www.w3.org/2000/svg"
-            // x="0px"
-            // y="0px"
-            viewBox="0 -50 550 650"
-            // className="width: 128px; height: 128px; opacity: 1;"
-          >
+          <svg viewBox="0 -50 550 650">
             <g>
               <path
                 d="M335.793,260.01c39.304-8.204,61.984-45.15,64.227-71.993c-39.276-31.905-90.818,2.452-103.086,22.09
@@ -56,18 +38,9 @@ export default function Home() {
               ></path>
             </g>
           </svg>
-
-          {/* <div className="w-20 h-20 text-[#ff7f50] mb-4">
-            <img src={DeerIcon} alt="Deer Icon" className="w-16 h-16" />
-          </div> */}
         </button>
         <div className="text-white text-m">Click to start</div>
       </div>
-
-      {/* Footer */}
-      <footer className="p-6 text-center">
-        <p className="text-white font-mono tracking-wider">CHIT560 2024</p>
-      </footer>
     </main>
   );
 }

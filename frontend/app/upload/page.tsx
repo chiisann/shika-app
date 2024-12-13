@@ -39,35 +39,20 @@ export default function UploadPage() {
 
     const formData = new FormData();
     if (selectedFile) {
-      console.log("File");
-      formData.append("image", selectedFile);
+      formData.append("file", selectedFile);
     } else if (selectedImage) {
-      formData.append("imageUrl", selectedImage);
+      formData.append("file", selectedImage);
     }
 
-    console.log("formData: ");
-    console.log(formData);
-
     try {
-      const response = await fetch("/api/process-image", {
+      const response = await fetch("http://127.0.0.1:8000/predict", {
         method: "POST",
         body: formData,
       });
 
-      //   const response2 = await fetch("/api/hello");
-      //   const response2 = await fetch("http://127.0.0.1:8000/hello", {
-      //     method: "GET",
-      //   });
-      //   console.log("response: ");
-      //   console.log(response);
-      //   console.log("response2: ");
-      //   console.log(response2);
-
       if (response.ok) {
         const data = await response.json();
-        // const data2 = await response2.json();
-        // router.push(`/result?greeting=${encodeURIComponent(data2.message)}`);
-        router.push(`/result?greeting=${encodeURIComponent(data.result)}`);
+        router.push(`/result?greeting=${encodeURIComponent(data.label)}`);
       } else {
         console.error("Failed to process image");
       }
@@ -80,36 +65,25 @@ export default function UploadPage() {
     e.preventDefault();
     const formData = new FormData();
     if (file) {
-      console.log("ファイルが存在します");
       formData.append("file", file);
     }
-
-    // const res = await fetch("/api/process-image", {
-    //   method: "POST",
-    //   //   body: JSON.stringify(formData),
-    //   body: formData,
-    // });
 
     const res = await fetch("http://127.0.0.1:8000/predict", {
       method: "POST",
       body: formData,
     });
 
-    // const res = await fetch("http://127.0.0.1:8000/hello", {
-    //   method: "GET",
-    // });
     const data = await res.json();
     console.log(data.label);
-    // setResult(data.prediction);
   };
 
   return (
-    <main className="min-h-screen flex flex-col bg-gradient-to-b from-[#ff7f50] to-[#ffa07a] p-6">
+    <main className="flex flex-col bg-custom-image p-6 font-sans">
       <h1 className="text-white text-2xl font-mono tracking-wider mb-8">
-        Upload or Select an Image
+        Upload an Image
       </h1>
 
-      {/* <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="bg-white rounded-lg p-6 mb-8">
           <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -131,7 +105,7 @@ export default function UploadPage() {
           </label>
         </div>
 
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <h2 className="text-white text-xl font-mono tracking-wider mb-4">
             Or select a sample image:
           </h2>
@@ -153,7 +127,7 @@ export default function UploadPage() {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {selectedImage && (
           <div className="mt-8">
@@ -170,9 +144,7 @@ export default function UploadPage() {
               />
             </div>
           </div>
-        )} */}
-
-      {/* 
+        )}
 
         <button
           type="submit"
@@ -181,20 +153,7 @@ export default function UploadPage() {
         >
           Submit
         </button>
-        </form> */}
-      <form onSubmit={handleSubmit2}>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            if (e.target.files && e.target.files[0]) {
-              setFile(e.target.files[0]);
-            }
-          }}
-        />
-        <button type="submit">Submit</button>
       </form>
-      {result && <h2>Prediction: {result}</h2>}
     </main>
   );
 }
