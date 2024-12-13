@@ -108,8 +108,14 @@ export default function ResultPage() {
         </div>
       </div>
 
+      <div className="text-white text-m mt-3">
+        あなたは、この鹿の
+        <span className="text-lg">10</span>
+        人目の発見者です！
+      </div>
+
       {/* map */}
-      <h3 className="text-white text-l font-mono tracking-wider mt-8">
+      <h3 className="text-white text-l font-mono tracking-wider mt-4">
         よく発見されている場所↓
       </h3>
 

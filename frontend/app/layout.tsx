@@ -27,7 +27,7 @@ export default function RootLayout({
         <header className="p-6 flex justify-between items-center">
           <button onClick={() => router.push("/")}>
             <h1 className="text-white text-2xl font-mono tracking-wider">
-              SHIKA-FINDEER
+              SHIKA-FINDE(E)R
             </h1>
           </button>
 

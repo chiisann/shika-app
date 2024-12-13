@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 const CameraComponent = ({ onCapture }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -7,7 +7,11 @@ const CameraComponent = ({ onCapture }) => {
   // カメラを起動する関数
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: "environment", // スマホのバックカメラを使用
+        },
+      });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
@@ -28,23 +32,43 @@ const CameraComponent = ({ onCapture }) => {
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        const capturedImage = canvas.toDataURL("image/png"); // Base64形式で画像を保存
-        if (onCapture) {
-          onCapture(capturedImage); // 親コンポーネントに画像を返す
-        }
+
+        canvas.toBlob((blob) => {
+          if (blob && onCapture) {
+            const file = new File([blob], "captured-image.png", {
+              type: "image/png",
+            });
+            onCapture(file); // 親コンポーネントに File オブジェクトを返す
+          }
+        }, "image/png");
       }
     }
   };
 
   return (
-    <div>
-      <h1>カメラコンポーネント</h1>
+    <div className="mb-5">
+      <h2 className="text-white text-2xl font-mono tracking-wider mb-8">
+        Camera
+      </h2>
       <div>
         <video ref={videoRef} style={{ width: "100%", maxWidth: "500px" }} />
         <canvas ref={canvasRef} style={{ display: "none" }} />
       </div>
-      <button onClick={startCamera}>カメラを起動</button>
-      <button onClick={captureImage}>撮影</button>
+
+      <div className="flex items-center flex-col mx-5">
+        <button
+          onClick={startCamera}
+          className="mt-3 w-full bg-white text-[#ff7f50] font-bold py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
+        >
+          カメラ起動
+        </button>
+        <button
+          onClick={captureImage}
+          className="mt-3 w-full bg-white text-[#ff7f50] font-bold py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
+        >
+          撮影
+        </button>
+      </div>
     </div>
   );
 };

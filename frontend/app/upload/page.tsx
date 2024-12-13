@@ -13,9 +13,16 @@ export default function UploadPage() {
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const router = useRouter();
 
+  // TODO uploadだめ capture OK
   const handleCapture = (image) => {
-    console.log("Captured Image:", image);
-    setCapturedImage(image);
+    // console.log("Captured Image:", image);
+    setSelectedImage(image);
+    // setCapturedImage(image);
+    // const imageUrl = URL.createObjectURL(image);
+    // setSelectedImage(imageUrl);
+
+    const imageUrl = URL.createObjectURL(image);
+    setCapturedImage(imageUrl);
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,8 +43,6 @@ export default function UploadPage() {
       formData.append("file", selectedFile);
     } else if (selectedImage) {
       formData.append("file", selectedImage);
-    } else if (capturedImage) {
-      formData.append("file", capturedImage);
     }
 
     try {
@@ -101,15 +106,31 @@ export default function UploadPage() {
             />
           </label>
         </div>
-
-        {(selectedImage || capturedImage) && (
+        {/* {selectedImage && (
           <div className="mt-8">
             <h2 className="text-white text-xl font-mono tracking-wider mb-4">
               Selected Image:
             </h2>
             <div className="bg-white p-2 rounded-lg">
               <Image
-                src={selectedImage || capturedImage || ""}
+                src={selectedImage}
+                alt="Selected image"
+                width={300}
+                height={300}
+                className="w-full h-auto"
+              />
+            </div>
+          </div>
+        )} */}
+
+        {capturedImage && (
+          <div className="mt-8">
+            <h2 className="text-white text-xl font-mono tracking-wider mb-4">
+              Selected Image:
+            </h2>
+            <div className="bg-white p-2 rounded-lg">
+              <Image
+                src={capturedImage}
                 alt="Selected image"
                 width={300}
                 height={300}

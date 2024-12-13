@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <main>
       {/* Main Content */}
-      <div className="flex items-center flex-col p-6 gap-10 mt-10">
+      <div className="flex items-center flex-col p-6 gap-10 mt-5">
         <div className="absolute w-64 h-64 bg-white rounded-full animate-pulse-grow border-4 border-white"></div>
         <button
           className="w-64 h-64 bg-white rounded-full flex flex-col items-center justify-center transform transition-transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/50"
@@ -40,7 +40,11 @@ export default function Home() {
             </g>
           </svg>
         </button>
-        <div className="text-white text-m">Click to start</div>
+        <div className="text-white text-lg">Click to start</div>
+        <div className="text-white text-m mt-3">
+          <p className="text-lg">SHIKA-FINDE(E)R</p>
+          は、奈良の鹿のためだけに作られた機械学習モデルを用いて、鹿の名前を予測するアプリです。
+        </div>
       </div>
     </main>
   );
