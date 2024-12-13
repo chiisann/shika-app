@@ -1,6 +1,0 @@
-{
-  "/api/process-image/route": "app/api/process-image/route.js",
-  "/result/page": "app/result/page.js",
-  "/upload/page": "app/upload/page.js",
-  "/page": "app/page.js"
-}

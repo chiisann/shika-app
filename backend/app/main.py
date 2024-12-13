@@ -65,16 +65,19 @@ app.add_middleware(
 # エンドポイントの定義
 @app.post("/predict/")
 async def classify_image(file: UploadFile = File(...)):
+    print(f"Headers: {file.headers}")  # アップロードファイルのヘッダーを出力
+    print(f"Filename: {file.filename}")  # ファイル名を出力
+
     try:
-        # ファイルをPIL形式で読み込む
         image = Image.open(file.file).convert("RGB")
     except Exception as e:
+        print(f"Error loading image: {e}")
         raise HTTPException(status_code=400, detail="Invalid image file")
 
-    # 推論を実行
     predicted_label = predict(image, model)
-    print(predicted_label)
+    print(f"Predicted label: {predicted_label}")
     return JSONResponse(content={"label": predicted_label})
+
 
 # ルートエンドポイントのGETメソッドを定義
 @app.get("/hello/")

@@ -10,15 +10,13 @@ const SAMPLE_IMAGES = [
   "../img/deer_02.jpg",
   "../img/deer_06.jpg",
   "../img/deer_10.jpg",
-  //   "../../public/img/deer_01.jpg",
-  //   "../../public/img/deer_02.jpg",
-  //   "../../public/img/deer_06.jpg",
-  //   "../../public/img/deer_10.jpg",
 ];
 
 export default function UploadPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [result, setResult] = useState("");
   const router = useRouter();
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,13 +76,40 @@ export default function UploadPage() {
     }
   };
 
+  const handleSubmit2 = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    if (file) {
+      console.log("ファイルが存在します");
+      formData.append("file", file);
+    }
+
+    // const res = await fetch("/api/process-image", {
+    //   method: "POST",
+    //   //   body: JSON.stringify(formData),
+    //   body: formData,
+    // });
+
+    const res = await fetch("http://127.0.0.1:8000/predict", {
+      method: "POST",
+      body: formData,
+    });
+
+    // const res = await fetch("http://127.0.0.1:8000/hello", {
+    //   method: "GET",
+    // });
+    const data = await res.json();
+    console.log(data.label);
+    // setResult(data.prediction);
+  };
+
   return (
     <main className="min-h-screen flex flex-col bg-gradient-to-b from-[#ff7f50] to-[#ffa07a] p-6">
       <h1 className="text-white text-2xl font-mono tracking-wider mb-8">
         Upload or Select an Image
       </h1>
 
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <div className="bg-white rounded-lg p-6 mb-8">
           <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -145,7 +170,9 @@ export default function UploadPage() {
               />
             </div>
           </div>
-        )}
+        )} */}
+
+      {/* 
 
         <button
           type="submit"
@@ -154,7 +181,20 @@ export default function UploadPage() {
         >
           Submit
         </button>
+        </form> */}
+      <form onSubmit={handleSubmit2}>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              setFile(e.target.files[0]);
+            }
+          }}
+        />
+        <button type="submit">Submit</button>
       </form>
+      {result && <h2>Prediction: {result}</h2>}
     </main>
   );
 }
