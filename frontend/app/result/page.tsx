@@ -55,9 +55,12 @@ export default function ResultPage() {
       </h2>
       <div className="flex items-center justify-between w-full">
         {id ? (
-          <p className="text-5xl sm:text-7xl text-white font-mono font-black">
-            {deer_list[id]}
-          </p>
+          <div>
+            <p className="text-5xl sm:text-7xl text-white font-mono font-black">
+              {deer_list[id]}
+            </p>
+            <p className="text-white ml-1">{id}</p>
+          </div>
         ) : (
           <p className="text-white">Loading result...</p>
         )}
