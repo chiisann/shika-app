@@ -94,7 +94,7 @@ export default function UploadPage() {
         </div>
         {selectedImage && (
           <div className="mt-8">
-            <h2 className="text-white text-xl font-mono tracking-wider mb-4">
+            <h2 className="text-white text-xl font-mono tracking-wider mb-2">
               Selected Image:
             </h2>
             <div className="bg-white p-2 rounded-lg">
@@ -111,7 +111,7 @@ export default function UploadPage() {
 
         <button
           type="submit"
-          className="mt-8 w-full bg-white text-[#ff7f50] font-bold py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
+          className="mt-6 w-full bg-white text-[#ff7f50] font-bold py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
           disabled={!selectedImage}
         >
           Submit
