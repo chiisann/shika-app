@@ -46,25 +46,22 @@ const CameraComponent = ({ onCapture }) => {
   };
 
   return (
-    <div className="mb-5">
-      <h2 className="text-white text-2xl font-mono tracking-wider mb-8">
-        Camera
-      </h2>
-      <div>
+    <div className="mb-5 px-4">
+      <div className="border-2 border-white rounded p-5">
         <video ref={videoRef} style={{ width: "100%", maxWidth: "500px" }} />
         <canvas ref={canvasRef} style={{ display: "none" }} />
       </div>
 
-      <div className="flex items-center flex-col mx-5">
+      <div className="flex items-center flex-col mb-5">
         <button
           onClick={startCamera}
-          className="mt-3 w-full bg-white text-[#ff7f50] font-bold py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
+          className="mt-3 w-full bg-white text-[#ff7f50] font-bold py-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
         >
           カメラ起動
         </button>
         <button
           onClick={captureImage}
-          className="mt-3 w-full bg-white text-[#ff7f50] font-bold py-2 px-4 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
+          className="mt-3 w-full bg-white text-[#ff7f50] font-bold py-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white"
         >
           撮影
         </button>

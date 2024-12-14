@@ -86,43 +86,6 @@ export default function UploadPage() {
       <CameraComponent onCapture={handleCapture} />
 
       <form onSubmit={handleSubmit}>
-        <div className="bg-white rounded-lg p-6 mb-8">
-          <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-              <Upload className="w-10 h-10 mb-3 text-gray-400" />
-              <p className="mb-2 text-sm text-gray-500">
-                <span className="font-semibold">Click to upload</span> or drag
-                and drop
-              </p>
-              <p className="text-xs text-gray-500">
-                PNG, JPG or GIF (MAX. 800x400px)
-              </p>
-            </div>
-            <input
-              type="file"
-              className="hidden"
-              onChange={handleFileUpload}
-              accept="image/*"
-            />
-          </label>
-        </div>
-        {/* {selectedImage && (
-          <div className="mt-8">
-            <h2 className="text-white text-xl font-mono tracking-wider mb-4">
-              Selected Image:
-            </h2>
-            <div className="bg-white p-2 rounded-lg">
-              <Image
-                src={selectedImage}
-                alt="Selected image"
-                width={300}
-                height={300}
-                className="w-full h-auto"
-              />
-            </div>
-          </div>
-        )} */}
-
         {capturedImage && (
           <div className="mt-8">
             <h2 className="text-white text-xl font-mono tracking-wider mb-4">
