@@ -10,20 +10,7 @@ export default function UploadPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [file, setFile] = useState<File | null>(null);
-  const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const router = useRouter();
-
-  // TODO uploadだめ capture OK
-  const handleCapture = (image) => {
-    // console.log("Captured Image:", image);
-    setSelectedImage(image);
-    // setCapturedImage(image);
-    // const imageUrl = URL.createObjectURL(image);
-    // setSelectedImage(imageUrl);
-
-    const imageUrl = URL.createObjectURL(image);
-    setCapturedImage(imageUrl);
-  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -83,7 +70,6 @@ export default function UploadPage() {
       <h1 className="text-white text-2xl font-mono tracking-wider mb-8">
         Upload an Image
       </h1>
-      <CameraComponent onCapture={handleCapture} />
 
       <form onSubmit={handleSubmit}>
         <div className="bg-white rounded-lg p-6 mb-8">
@@ -106,7 +92,7 @@ export default function UploadPage() {
             />
           </label>
         </div>
-        {/* {selectedImage && (
+        {selectedImage && (
           <div className="mt-8">
             <h2 className="text-white text-xl font-mono tracking-wider mb-4">
               Selected Image:
@@ -114,23 +100,6 @@ export default function UploadPage() {
             <div className="bg-white p-2 rounded-lg">
               <Image
                 src={selectedImage}
-                alt="Selected image"
-                width={300}
-                height={300}
-                className="w-full h-auto"
-              />
-            </div>
-          </div>
-        )} */}
-
-        {capturedImage && (
-          <div className="mt-8">
-            <h2 className="text-white text-xl font-mono tracking-wider mb-4">
-              Selected Image:
-            </h2>
-            <div className="bg-white p-2 rounded-lg">
-              <Image
-                src={capturedImage}
                 alt="Selected image"
                 width={300}
                 height={300}
